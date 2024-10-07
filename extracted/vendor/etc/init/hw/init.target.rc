@@ -27,17 +27,17 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
+import /vendor/etc/init/hw/init.samsung.rc
+import /vendor/etc/init/hw/init.${ro.product.vendor.device}.rc
+import /vendor/etc/init/hw/init.${ro.product.vendor.name}.rc
 
 import /vendor/etc/init/hw/init.qti.kernel.rc
-import /vendor/etc/init/hw/init.mtefos.rc
 
 on early-init
     exec u:r:vendor_modprobe:s0 -- /vendor/bin/vendor_modprobe.sh
-    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules q6_pdr_dlkm q6_notifier_dlkm snd_event_dlkm apr_dlkm adsp_loader_dlkm q6_dlkm native_dlkm pinctrl_wcd_dlkm pinctrl_lpi_dlkm swr_dlkm platform_dlkm hdmi_dlkm stub_dlkm wcd_core_dlkm wsa883x_dlkm bolero_cdc_dlkm wsa_macro_dlkm va_macro_dlkm rx_macro_dlkm tx_macro_dlkm bt_fm_slim wcd938x_dlkm wcd938x_slave_dlkm swr_dmic_dlkm swr_haptics_dlkm machine_dlkm radio-i2c-rtc6226-qca mmc_core mmc_block sdhci sdhci-pltfm sdhci-msm cdsprm spi-hid camera/tmf8801
-
+    exec u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules q6_pdr_dlkm q6_notifier_dlkm snd_event_dlkm apr_dlkm adsp_loader_dlkm q6_dlkm native_dlkm pinctrl_wcd_dlkm pinctrl_lpi_dlkm swr_dlkm platform_dlkm hdmi_dlkm stub_dlkm wcd_core_dlkm wsa883x_dlkm bolero_cdc_dlkm wsa_macro_dlkm va_macro_dlkm rx_macro_dlkm tx_macro_dlkm bt_fm_slim wcd938x_dlkm wcd938x_slave_dlkm wcd937x_dlkm wcd937x_slave_dlkm swr_dmic_dlkm swr_haptics_dlkm machine_dlkm radio-i2c-rtc6226-qca cdsprm
     write /proc/sys/kernel/sched_boost 1
     wait /sys/devices/soc0/soc_id
-
 
 on init
     # Scheduler uclamp
@@ -60,7 +60,6 @@ on init
     chmod 0664 /dev/cpuctl/background/tasks
     chmod 0664 /dev/cpuctl/top-app/tasks
     chmod 0664 /dev/cpuctl/rt/tasks
-    chmod 0666 /sys/devices/platform/soc/soc:surface_util/display_state/display_state
     write /dev/cpuctl/foreground/cpu.rt_runtime_us 950000
     write /dev/cpuctl/background/cpu.rt_runtime_us 950000
     write /dev/cpuctl/top-app/cpu.rt_runtime_us 950000
@@ -72,8 +71,11 @@ on init
     chmod 0660 /sys/devices/platform/soc/1d84000.ufshc/auto_hibern8
     start logd
 
-on late-init
-    start device-init-svc
+    # Property used by vintf for sku specific manifests
+    setprop ro.boot.product.hardware.sku ${ro.boot.hardware.sku}
+
+    # System Performance 0-7 to 0-2,4-7
+    write /dev/cpuset/foreground/cpus 0-2,4-7
 
 on early-fs
     start vold
@@ -86,14 +88,6 @@ on fs
     chmod 0771 /mnt/vendor/persist
     restorecon_recursive /mnt/vendor/persist
     mkdir /mnt/vendor/persist/data 0700 system system
-    # MSCHANGE add wlan folder
-    mkdir /mnt/vendor/persist/wlan 0700 system system
-    # MSCHANGE - SFPD Mapper - Start
-    start sfpd_mapper_early
-    export sfpd_mapper_early yes
-    # MSCHANGE - SFPD Mapper - End
-    # MSCHANGE Init product properties
-    start product.properties
 
 on fs && property:ro.boot.product.vendor.sku=lahaina
     mkdir /mnt/vendor/spunvm 0660 system system
@@ -113,15 +107,9 @@ on post-fs-data
     mkdir /vendor/data/tombstones 0771 system system
     # Enable WLAN cold boot calibration
     write /sys/devices/platform/soc/b0000000.qcom,cnss-qca6490/fs_ready 1
-    # MSCHANGE - SFPD Mapper - Start
-    exec_start sfpd_mapper_late
-    export sfpd_mapper_late yes
-	chown audioserver audio /data/vendor/audio/audio.cal
-    # MSCHANGE - SFPD Mapper - End
 
-on early-boot && property:vendor.sensor.sfpd_done=true
+on early-boot
     start vendor.sensors
-    verity_update_state
 
 on boot
     write /dev/cpuset/audio-app/cpus 1-2
@@ -151,27 +139,6 @@ on boot
     chmod 0660 /sys/devices/platform/soc/a94000.i2c/i2c-2/2-0062/trusted_touch_event
     chown system /sys/devices/system/cpu/hyp_core_ctl/enable
     chown system /sys/devices/system/cpu/hyp_core_ctl/hcc_min_freq
-    #MSCHANGE Start
-    #Fingerprint
-    chown system system /sys/devices/platform/soc/soc:fpc1020/irq
-    chown system system /sys/devices/platform/soc/soc:fpc1020/hw_reset
-    chown system system /sys/devices/platform/soc/soc:fpc1020/wakeup_enable
-    chmod 660 /sys/devices/platform/soc/soc:fpc1020/irq
-    chmod 660 /sys/devices/platform/soc/soc:fpc1020/hw_reset
-    chmod 660 /sys/devices/platform/soc/soc:fpc1020/wakeup_enable
-    # for memtrack
-    setprop ro.hardware.memtrack qcom
-    # for tof sensor
-    chown cameraserver cameraserver /sys/devices/platform/soc/ac50000.qcom,cci1/ac50000.qcom,cci1:tof8801@41/chip_enable
-    chmod 0660 /sys/devices/platform/soc/ac50000.qcom,cci1/ac50000.qcom,cci1:tof8801@41/chip_enable
-    chown cameraserver cameraserver /sys/devices/platform/soc/ac50000.qcom,cci1/ac50000.qcom,cci1:tof8801@41/app0/app0_apply_state_data
-    chmod 0660 /sys/devices/platform/soc/ac50000.qcom,cci1/ac50000.qcom,cci1:tof8801@41/app0/app0_apply_state_data
-    chown cameraserver cameraserver /sys/devices/platform/soc/ac50000.qcom,cci1/ac50000.qcom,cci1:tof8801@41/app0/period
-    chmod 0660 /sys/devices/platform/soc/ac50000.qcom,cci1/ac50000.qcom,cci1:tof8801@41/app0/period
-    # for battery telemetry
-    chown system system /sys/kernel/telemetry/battery/1/payload
-    chown system system /sys/kernel/telemetry/battery/2/payload
-    #MSCHANGE End
     #USB controller configuration
     setprop vendor.usb.rndis.func.name "gsi"
     setprop vendor.usb.rmnet.func.name "gsi"
@@ -184,10 +151,11 @@ on boot
     exec_background u:r:vendor_modprobe:s0 -- /vendor/bin/modprobe -a -d /vendor/lib/modules/5.4-gki qca_cld3_wlan qca_cld3_qca6390
     #Allow access to memory hotplug device attributes
     chown system system /sys/kernel/mem-offline/anon_migrate
-    start vendor.subsystem_restart
-    #MSCHANGE Start
-    start battery.properties
-    #MSCHANGE End
+
+# For CDSP crash
+on property:ro.boot.debug_level=0x494d
+    setprop vendor.fastrpc.process.attrs 1
+    setprop vendor.fastrpc.debug.trace 1
 
 on property:vendor.display.lcd_density=560
    setprop dalvik.vm.heapgrowthlimit 256m
@@ -198,21 +166,10 @@ on property:vendor.display.lcd_density=640
 on boot && property:persist.vendor.usb.controller.default=*
     setprop vendor.usb.controller ${persist.vendor.usb.controller.default}
 
-on init && property:ro.boot.mode=charger
-    mount_all /vendor/etc/charger_fw_fstab.qti --early
-    write /sys/kernel/boot_adsp/boot 1
-    wait /sys/class/power_supply/battery
-
 on charger
     start vendor.power_off_alarm
     setprop sys.usb.controller a600000.dwc3
     setprop sys.usb.configfs 1
-
-service vendor.lowi /vendor/bin/lowirpcd
-   class core
-   user system
-   group system wakelock
-   capabilities BLOCK_SUSPEND
 
 #pd-mapper
 service vendor.pd_mapper /vendor/bin/pd-mapper
@@ -257,88 +214,6 @@ service vendor.cnss_diag /system/vendor/bin/cnss_diag -q -f -t HELIUM
    group system wifi inet sdcard_rw media_rw diag
    oneshot
 
-# MSCHANGE - SFPD Mapper - Start
-service sfpd_mapper_early /vendor/bin/init.sfpd.sh ${ro.product.build.variant} early
-    class core
-    user system
-    group system bluetooth
-    disabled
-    oneshot
-
-service sfpd_mapper_late /vendor/bin/init.sfpd.sh ${ro.product.build.variant} late
-    class core
-    user system
-    group system audio
-    disabled
-    oneshot
-
-# MSCHANGE - SFPD Mapper - End
-
-# MSCHANGE Init product properties
-service product.properties /vendor/bin/init.product_properties.sh
-    class core
-    user system
-    group system
-    disabled
-    oneshot
-
-# MSCHANGE Start: Provision Keys
-
-service provision_keys /vendor/bin/init.provision_keys.sh
-    class core
-    user system
-    group system
-    disabled
-    oneshot
-
-on property:persist.vendor.act.mode=1
-    start provision_keys
-
-# MSCHANGE End: Provision Keys
-
-# MSCHANGE: Battery properties
-service battery.properties /vendor/bin/init.battery_properties.sh
-    class core
-    user system
-    group system
-    disabled
-    oneshot
-
-# Deviceinit service
-on property:vendor.device.hwrev=*
-    setprop ro.boot.hardware.revision ${vendor.device.hwrev}
-
-service device-init-svc /vendor/bin/deviceinit
-    class core
-    user root
-    group root
-    oneshot
-    disabled
-
-service vendor.subsystem_restart /vendor/bin/sh /vendor/etc/sensors/subsystem_restart_init.sh
-  class core
-  user root
-  group root
-  oneshot
-
-# MSCHANGE Boot completed time for Telemetry
-on property:sys.boot_completed=1
-    start vendor.boottime.boot_completed
-    # To disable the customized watchdog, workitem 204027
-    write /sys/fs/boot_wd/watchdog_enabled 0
-
-service vendor.boottime.boot_completed /vendor/bin/sh /vendor/bin/init.uptime.sh vendor.boottime.boot_completed
-    class core
-    oneshot
-
-on property:vendor.restore_tracing_events=*
-  start restore_tracing_events
-
-service restore_tracing_events /vendor/bin/cp /sys/kernel/debug/tracing/trace /sdcard/
-  user root
-  group root
-  oneshot
-
 #fan-controller
 service fan_control_turn_on /vendor/bin/fan_control 1
     class late_start
@@ -351,11 +226,3 @@ service fan_control_turn_off /vendor/bin/fan_control 0
     user root
     disabled
     oneshot
-
-# MSCHANGE Start: init multisim properties
-on property:vendor.device.hwrev=*
-    exec - shell shell -- /vendor/bin/init.multisim_properties.sh ${vendor.device.hwrev}
-
-on property:vendor.radio.multisim.config=*
-    setprop persist.radio.multisim.config ${vendor.radio.multisim.config}
-# MSCHANGE End:init multisim properties

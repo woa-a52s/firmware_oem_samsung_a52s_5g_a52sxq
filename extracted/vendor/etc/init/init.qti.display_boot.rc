@@ -36,9 +36,3 @@ service qti_display_boot /vendor/bin/init.qti.display_boot.sh
 on post-fs-data
    start qti_display_boot
 
-
-# MSCHANGE - For display active/null switch    
-on init && property:ro.boot.nulldisplay=1
-   setprop vendor.display.enable_null_display 1
-
-# MSCHANGE END

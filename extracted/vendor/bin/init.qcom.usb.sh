@@ -101,18 +101,9 @@ if [ "$(getprop persist.vendor.usb.config)" == "" -a "$(getprop ro.build.type)" 
 	              "sdm845" | "sdm710")
 		          setprop persist.vendor.usb.config diag,serial_cdev,rmnet,dpl,adb
 		      ;;
-	              "msmnile")
-		               case "$soc_id" in
-			               "362" | "367")
-			                  setprop persist.vendor.usb.config diag,adb
-			               ;;
-			               *)
-			                  setprop persist.vendor.usb.config diag,serial_cdev,rmnet,dpl,qdss,adb
-			               ;;
-		               esac
-		      ;;
-	              "sm6150" | "trinket" | "lito" | "atoll" | "bengal" | "lahaina" | "holi")
-			  setprop persist.vendor.usb.config diag,serial_cdev,rmnet,dpl,qdss,adb
+	              "msmnile" | "sm6150" | "trinket" | "lito" | "atoll" | "bengal" | "lahaina" | "holi")
+			  #setprop persist.vendor.usb.config diag,serial_cdev,rmnet,dpl,qdss,adb
+		          setprop persist.vendor.usb.config diag,adb
 		      ;;
 	              "monaco")
 		          setprop persist.vendor.usb.config diag,qdss,rmnet,adb
@@ -152,7 +143,12 @@ esac
 
 # check configfs is mounted or not
 if [ -d /config/usb_gadget ]; then
-	# MSCHANGE - No need to report product string with serial number
+	# Chip-serial is used for unique MSM identification in Product string
+	msm_serial=`cat /sys/devices/soc0/serial_number`;
+	# If MSM serial number is not available, then keep it blank instead of 0x00000000
+	if [ "$msm_serial" != "" ]; then
+		msm_serial_hex=`printf %08X $msm_serial`
+	fi
 
 	machine_type=`cat /sys/devices/soc0/machine`
 	setprop vendor.usb.product_string "$machine_type-$soc_hwplatform _SN:$msm_serial_hex"
@@ -164,6 +160,15 @@ if [ -d /config/usb_gadget ]; then
 		echo $serialno > /config/usb_gadget/g1/strings/0x409/serialnumber
 	fi
 	setprop vendor.usb.configfs 1
+	
+	persist_comp=`getprop persist.sys.usb.config`
+	comp=`getprop sys.usb.config`
+	echo $persist_comp
+	echo $comp
+	if [ "$comp" != "$persist_comp" ]; then
+		echo "setting sys.usb.config"
+		setprop sys.usb.config $persist_comp
+	fi
 fi
 
 #

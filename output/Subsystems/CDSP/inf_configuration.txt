@@ -1,12 +1,9 @@
 ubwcdma_dynlib.so = 13,\CDSP
-map_SHARED_LIBS_lahaina.cdsp.prodQ.txt = 13,\CDSP
+map_SHARED_LIBS_kodiak.cdsp.prodQ.txt = 13,\CDSP
 libvpp_svc_skel.so = 13,\CDSP
 libvpp_qbr.so = 13,\CDSP
 libvpp_nr.so = 13,\CDSP
 libvpp_mvp.so = 13,\CDSP
-libvpp_mcnr.so = 13,\CDSP
-libvpp_frc.so = 13,\CDSP
-libvpp_ais.so = 13,\CDSP
 libvpp_aie.so = 13,\CDSP
 libsysmon_skel.so = 13,\CDSP
 libsysmonquery_skel.so = 13,\CDSP
@@ -18,10 +15,7 @@ libQ6MSFR_manager_skel.so = 13,\CDSP
 libnn_preproc_postproc.so = 13,\CDSP
 libnn_preproc.so = 13,\CDSP
 libloadalgo_skel.so = 13,\CDSP
-libhcp_rpc_skel.so = 13,\CDSP
-libdsp_streamer_workloop.so = 13,\CDSP
 libdsp_streamer_vpt.so = 13,\CDSP
-libdsp_streamer_skel.so = 13,\CDSP
 libdsp_streamer_binning.so = 13,\CDSP
 libdsp_streamer_add_constant.so = 13,\CDSP
 libcvpdsp_2_1_intermediate.so = 13,\CDSP
@@ -36,14 +30,11 @@ example_image.so = 13,\CDSP
 -------------------------------
 
 ubwcdma_dynlib.so = 1,\CDSP
-map_SHARED_LIBS_lahaina.cdsp.prodQ.txt = 1,\CDSP
+map_SHARED_LIBS_kodiak.cdsp.prodQ.txt = 1,\CDSP
 libvpp_svc_skel.so = 1,\CDSP
 libvpp_qbr.so = 1,\CDSP
 libvpp_nr.so = 1,\CDSP
 libvpp_mvp.so = 1,\CDSP
-libvpp_mcnr.so = 1,\CDSP
-libvpp_frc.so = 1,\CDSP
-libvpp_ais.so = 1,\CDSP
 libvpp_aie.so = 1,\CDSP
 libsysmon_skel.so = 1,\CDSP
 libsysmonquery_skel.so = 1,\CDSP
@@ -55,10 +46,7 @@ libQ6MSFR_manager_skel.so = 1,\CDSP
 libnn_preproc_postproc.so = 1,\CDSP
 libnn_preproc.so = 1,\CDSP
 libloadalgo_skel.so = 1,\CDSP
-libhcp_rpc_skel.so = 1,\CDSP
-libdsp_streamer_workloop.so = 1,\CDSP
 libdsp_streamer_vpt.so = 1,\CDSP
-libdsp_streamer_skel.so = 1,\CDSP
 libdsp_streamer_binning.so = 1,\CDSP
 libdsp_streamer_add_constant.so = 1,\CDSP
 libcvpdsp_2_1_intermediate.so = 1,\CDSP
@@ -72,14 +60,14 @@ example_image.so = 1,\CDSP
 
 -------------------------------
 
-CopyFiles=ubwcdma_dynlib.so,map_SHARED_LIBS_lahaina.cdsp.prodQ.txt,libvpp_svc_skel.so,libvpp_qbr.so,libvpp_nr.so,libvpp_mvp.so,libvpp_mcnr.so,libvpp_frc.so,libvpp_ais.so,libvpp_aie.so,libsysmon_skel.so,libsysmonquery_skel.so,libsysmonhvxthrottle_skel.so,libsysmondomain_skel.so,libstabilitydomain_skel.so,libQ6MSFR_manager_skel_intermediate.so,libQ6MSFR_manager_skel.so,libnn_preproc_postproc.so,libnn_preproc.so,libloadalgo_skel.so,libhcp_rpc_skel.so,libdsp_streamer_workloop.so,libdsp_streamer_vpt.so,libdsp_streamer_skel.so,libdsp_streamer_binning.so,libdsp_streamer_add_constant.so,libcvpdsp_2_1_intermediate.so,libcvpdsp_2_1.so,libc++abi.so.1,libc++.so.1,libbenchmark_skel.so,fastrpc_shell_unsigned_3,fastrpc_shell_3,example_image.so
+CopyFiles=ubwcdma_dynlib.so,map_SHARED_LIBS_kodiak.cdsp.prodQ.txt,libvpp_svc_skel.so,libvpp_qbr.so,libvpp_nr.so,libvpp_mvp.so,libvpp_aie.so,libsysmon_skel.so,libsysmonquery_skel.so,libsysmonhvxthrottle_skel.so,libsysmondomain_skel.so,libstabilitydomain_skel.so,libQ6MSFR_manager_skel_intermediate.so,libQ6MSFR_manager_skel.so,libnn_preproc_postproc.so,libnn_preproc.so,libloadalgo_skel.so,libdsp_streamer_vpt.so,libdsp_streamer_binning.so,libdsp_streamer_add_constant.so,libcvpdsp_2_1_intermediate.so,libcvpdsp_2_1.so,libc++abi.so.1,libc++.so.1,libbenchmark_skel.so,fastrpc_shell_unsigned_3,fastrpc_shell_3,example_image.so
 
 -------------------------------
 
 [ubwcdma_dynlib.so]
 ubwcdma_dynlib.so
-[map_SHARED_LIBS_lahaina.cdsp.prodQ.txt]
-map_SHARED_LIBS_lahaina.cdsp.prodQ.txt
+[map_SHARED_LIBS_kodiak.cdsp.prodQ.txt]
+map_SHARED_LIBS_kodiak.cdsp.prodQ.txt
 [libvpp_svc_skel.so]
 libvpp_svc_skel.so
 [libvpp_qbr.so]
@@ -88,12 +76,6 @@ libvpp_qbr.so
 libvpp_nr.so
 [libvpp_mvp.so]
 libvpp_mvp.so
-[libvpp_mcnr.so]
-libvpp_mcnr.so
-[libvpp_frc.so]
-libvpp_frc.so
-[libvpp_ais.so]
-libvpp_ais.so
 [libvpp_aie.so]
 libvpp_aie.so
 [libsysmon_skel.so]
@@ -116,14 +98,8 @@ libnn_preproc_postproc.so
 libnn_preproc.so
 [libloadalgo_skel.so]
 libloadalgo_skel.so
-[libhcp_rpc_skel.so]
-libhcp_rpc_skel.so
-[libdsp_streamer_workloop.so]
-libdsp_streamer_workloop.so
 [libdsp_streamer_vpt.so]
 libdsp_streamer_vpt.so
-[libdsp_streamer_skel.so]
-libdsp_streamer_skel.so
 [libdsp_streamer_binning.so]
 libdsp_streamer_binning.so
 [libdsp_streamer_add_constant.so]
@@ -187,21 +163,9 @@ hkr,mappings\fastrpc\default\9716e71ec7f8a0c4178c26b5b799b2b59d6e22bc9cf40ba17bc
 HKR,Mappings\FASTRPC\Default\65adaa3d1daa91fcc74bd3ff680d71cb25bb374b1bf3067842668c7982fc2342,"Local",%REG_SZ%, %13%\CDSP\libdsp_streamer_binning.so
 hkr,mappings\fastrpc\default\65adaa3d1daa91fcc74bd3ff680d71cb25bb374b1bf3067842668c7982fc2342,"remote",%reg_sz%, \cdsp\libdsp_streamer_binning.so
 
-; Updating registry of libdsp_streamer_skel.so to remote path \cdsp\libdsp_streamer_skel.so
-HKR,Mappings\FASTRPC\Default\4f2208cfe4d93ee0f0d7c1a981bc7fa450cc8c423fda319c37514e8da2573e9e,"Local",%REG_SZ%, %13%\CDSP\libdsp_streamer_skel.so
-hkr,mappings\fastrpc\default\4f2208cfe4d93ee0f0d7c1a981bc7fa450cc8c423fda319c37514e8da2573e9e,"remote",%reg_sz%, \cdsp\libdsp_streamer_skel.so
-
 ; Updating registry of libdsp_streamer_vpt.so to remote path \cdsp\libdsp_streamer_vpt.so
 HKR,Mappings\FASTRPC\Default\c994d46b1c78329b548f42c0219475323defef970c392b5a050407c61395e142,"Local",%REG_SZ%, %13%\CDSP\libdsp_streamer_vpt.so
 hkr,mappings\fastrpc\default\c994d46b1c78329b548f42c0219475323defef970c392b5a050407c61395e142,"remote",%reg_sz%, \cdsp\libdsp_streamer_vpt.so
-
-; Updating registry of libdsp_streamer_workloop.so to remote path \cdsp\libdsp_streamer_workloop.so
-HKR,Mappings\FASTRPC\Default\3657726e69f53e08d5dc1debff2c4581f96dce6980c0f4c002214af8fa17a65c,"Local",%REG_SZ%, %13%\CDSP\libdsp_streamer_workloop.so
-hkr,mappings\fastrpc\default\3657726e69f53e08d5dc1debff2c4581f96dce6980c0f4c002214af8fa17a65c,"remote",%reg_sz%, \cdsp\libdsp_streamer_workloop.so
-
-; Updating registry of libhcp_rpc_skel.so to remote path \cdsp\libhcp_rpc_skel.so
-HKR,Mappings\FASTRPC\Default\478ea85c58f5c082cf031af811d993fcf177075ce6478053311d7f075c9c9519,"Local",%REG_SZ%, %13%\CDSP\libhcp_rpc_skel.so
-hkr,mappings\fastrpc\default\478ea85c58f5c082cf031af811d993fcf177075ce6478053311d7f075c9c9519,"remote",%reg_sz%, \cdsp\libhcp_rpc_skel.so
 
 ; Updating registry of libloadalgo_skel.so to remote path \cdsp\libloadalgo_skel.so
 HKR,Mappings\FASTRPC\Default\8796404f413f23b2ed54aa9153bfde171d50fd23a70e8aff20474c16acbaa0a3,"Local",%REG_SZ%, %13%\CDSP\libloadalgo_skel.so
@@ -247,18 +211,6 @@ hkr,mappings\fastrpc\default\be24b8ec370e39882568d2431504b59797e3d738cd37fc6a41b
 HKR,Mappings\FASTRPC\Default\859649efec47d2fb99d90a54efdda12801a4252d37a9377ec0861e9aa60079a3,"Local",%REG_SZ%, %13%\CDSP\libvpp_aie.so
 hkr,mappings\fastrpc\default\859649efec47d2fb99d90a54efdda12801a4252d37a9377ec0861e9aa60079a3,"remote",%reg_sz%, \cdsp\libvpp_aie.so
 
-; Updating registry of libvpp_ais.so to remote path \cdsp\libvpp_ais.so
-HKR,Mappings\FASTRPC\Default\90529f55c392a7937ef25471ee5f481c7289eef0b3c6d8b9878e2bb969a0cf1d,"Local",%REG_SZ%, %13%\CDSP\libvpp_ais.so
-hkr,mappings\fastrpc\default\90529f55c392a7937ef25471ee5f481c7289eef0b3c6d8b9878e2bb969a0cf1d,"remote",%reg_sz%, \cdsp\libvpp_ais.so
-
-; Updating registry of libvpp_frc.so to remote path \cdsp\libvpp_frc.so
-HKR,Mappings\FASTRPC\Default\c1b6b6f0f2afcd818df09ab50dbd4c9ee891606855d47d3f0c3e59adbca99517,"Local",%REG_SZ%, %13%\CDSP\libvpp_frc.so
-hkr,mappings\fastrpc\default\c1b6b6f0f2afcd818df09ab50dbd4c9ee891606855d47d3f0c3e59adbca99517,"remote",%reg_sz%, \cdsp\libvpp_frc.so
-
-; Updating registry of libvpp_mcnr.so to remote path \cdsp\libvpp_mcnr.so
-HKR,Mappings\FASTRPC\Default\3403e3df5b75fa327950c9676d5951724530ef447fd868e47a284d79ed203b70,"Local",%REG_SZ%, %13%\CDSP\libvpp_mcnr.so
-hkr,mappings\fastrpc\default\3403e3df5b75fa327950c9676d5951724530ef447fd868e47a284d79ed203b70,"remote",%reg_sz%, \cdsp\libvpp_mcnr.so
-
 ; Updating registry of libvpp_mvp.so to remote path \cdsp\libvpp_mvp.so
 HKR,Mappings\FASTRPC\Default\87f91426c1b645a10ef3f1d1677bba80d3e7b2841b859bd112ced3a3ecc5e4cb,"Local",%REG_SZ%, %13%\CDSP\libvpp_mvp.so
 hkr,mappings\fastrpc\default\87f91426c1b645a10ef3f1d1677bba80d3e7b2841b859bd112ced3a3ecc5e4cb,"remote",%reg_sz%, \cdsp\libvpp_mvp.so
@@ -275,9 +227,9 @@ hkr,mappings\fastrpc\default\78cb2b237d2e72c41a85c277f012a4885875b4ab3fa4d2e4cef
 HKR,Mappings\FASTRPC\Default\037cd1e0cd334190d9070ef4bcc5cf5ef4a35bdfc996cf588dce4b7d7ae7843a,"Local",%REG_SZ%, %13%\CDSP\libvpp_svc_skel.so
 hkr,mappings\fastrpc\default\037cd1e0cd334190d9070ef4bcc5cf5ef4a35bdfc996cf588dce4b7d7ae7843a,"remote",%reg_sz%, \cdsp\libvpp_svc_skel.so
 
-; Updating registry of map_SHARED_LIBS_lahaina.cdsp.prodQ.txt to remote path \cdsp\map_SHARED_LIBS_lahaina.cdsp.prodQ.txt
-HKR,Mappings\FASTRPC\Default\cc757c55e47ec45419df607c893359c5ac64bc7451cac947b3e89db8df44c524,"Local",%REG_SZ%, %13%\CDSP\map_SHARED_LIBS_lahaina.cdsp.prodQ.txt
-hkr,mappings\fastrpc\default\cc757c55e47ec45419df607c893359c5ac64bc7451cac947b3e89db8df44c524,"remote",%reg_sz%, \cdsp\map_shared_libs_lahaina.cdsp.prodq.txt
+; Updating registry of map_SHARED_LIBS_kodiak.cdsp.prodQ.txt to remote path \cdsp\map_SHARED_LIBS_kodiak.cdsp.prodQ.txt
+HKR,Mappings\FASTRPC\Default\7f6ce101ae116bbb9530de845fca2453f4c20a7ff385fd2d83b94e75a9ab9e23,"Local",%REG_SZ%, %13%\CDSP\map_SHARED_LIBS_kodiak.cdsp.prodQ.txt
+hkr,mappings\fastrpc\default\7f6ce101ae116bbb9530de845fca2453f4c20a7ff385fd2d83b94e75a9ab9e23,"remote",%reg_sz%, \cdsp\map_shared_libs_kodiak.cdsp.prodq.txt
 
 ; Updating registry of ubwcdma_dynlib.so to remote path \cdsp\ubwcdma_dynlib.so
 HKR,Mappings\FASTRPC\Default\ff3a961290300c0fc8d6b8c4a99f27326676fb241850f8389271c4382a143e2a,"Local",%REG_SZ%, %13%\CDSP\ubwcdma_dynlib.so

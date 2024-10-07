@@ -52,6 +52,10 @@ enum sns_proximity_event_type {
 
   SNS_PROXIMITY_EVENT_TYPE_FAR = 0;
   SNS_PROXIMITY_EVENT_TYPE_NEAR  = 1;
+  SNS_PROXIMITY_EVENT_TYPE_BASELINE  = 2;
+  SNS_PROXIMITY_EVENT_TYPE_MIDDLE_RANGE  = 3;
+  SNS_PROXIMITY_EVENT_TYPE_FAR_COMPLETE  = 4;
+  SNS_PROXIMITY_EVENT_TYPE_ADDITIONAL = 5;
 }
 
 // Events types from proximity Sensor
@@ -63,8 +67,19 @@ message sns_proximity_event
   // Proimity sensor raw data
   required uint32 raw_adc = 2;
 
+  // Proimity sensor offset
+  required uint32 offset = 3;
   // Proximity sensor sample status
-  required sns_std_sensor_sample_status status = 3 [default = SNS_STD_SENSOR_SAMPLE_STATUS_UNRELIABLE];
+  required sns_std_sensor_sample_status status = 4 [default = SNS_STD_SENSOR_SAMPLE_STATUS_UNRELIABLE];
+
+  // Proximity sensor etc information
+  optional uint32 param = 5;
+
+  // High threshold of Proimity sensor add by Samsung Sensor Team
+  required uint32 high_th = 6;
+
+  // Low threshold of Proimity sensor add by Samsung Sensor Team
+  required uint32 low_th = 7;
 }
 
 message sns_proximity_event_recurrent

@@ -1,0 +1,12 @@
+{
+    "Image_Build_IDs": {
+        "common": "Kodiak.LA.1.0.r1-00322-STD.PROD-1", 
+        "modem": "MPSS.HI.4.1.1-00392-LC_ALL_PACK-1"
+    }, 
+    "Metabuild_Info": {
+        "Meta_Build_ID": "Kodiak.LA.1.0.r1-00322-STD.PROD-1", 
+        "Product_Flavor": "asic", 
+        "Time_Stamp": "2023-11-03 08:00:43"
+    }, 
+    "Version": "1.0"
+}

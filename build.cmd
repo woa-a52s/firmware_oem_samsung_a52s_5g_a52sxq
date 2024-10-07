@@ -8,15 +8,17 @@ echo. ^|  _^|   \ V  V /   ^| ^|___ ^>  ^<^| ^|_^| ^| ^| ^(_^| ^| ^(__^| ^|^| ^(
 echo. ^|_^|      \_/\_/    ^|_____/_/\_\\__^|_^|  \__,_^|\___^|\__\___/^|_^|   
 echo.                                                                 
 
-REM OEMC1 Root Key Hash
-set RKH=34046EF5E08C14E01BE8883BFBE0E5C31A8E407B5B3B98C88F8A86C8D98C1235
+REM A52sxq Root Key Hash
+set RKH=2169476B5DB4A43D2475C40CA2A3B122CECD15361F437C488D7FE785FB6E8409
 
-set SOC=8350
+set SOC=7325
+
+REM TODO: evass.mbn and ipa_fws.elf unsigned
 
 echo.
-echo Target: OEMC1
+echo Target: A52sxq
 echo SoC   : SM%SOC%
-echo RKH   : %RKH% (Microsoft Andromeda Attestation PCA 2017) (From: 11/1/2017 To: 11/1/2032)
+echo RKH   : %RKH% (Samsung Firmware Origin Attestation CA)
 echo.
 
 for /f %%f in ('dir /b /s extracted\*.mbn.unsigned') do (
@@ -51,173 +53,133 @@ for /f %%f in ('dir /b /s extracted\*.img') do (
     call :checkRKH %%f
 )
 
-echo Cleaning up Output Directory...
-rmdir /Q /S output
+REM echo Cleaning up Output Directory...
+REM rmdir /Q /S output
 
-echo Cleaning up PIL Squasher Directory...
-rmdir /Q /S pil-squasher
+REM echo Cleaning up PIL Squasher Directory...
+REM rmdir /Q /S pil-squasher
 
-echo Cloning PIL Squasher...
+REM echo Cloning PIL Squasher...
 
-git clone https://github.com/linux-msm/pil-squasher
+REM git clone https://github.com/linux-msm/pil-squasher
 
-echo Building PIL Squasher...
+REM echo Building PIL Squasher...
 
-cd pil-squasher
-bash.exe -c make
-cd ..
+REM cd pil-squasher
+REM bash.exe -c make
+REM cd ..
 
 mkdir output
 mkdir output\Subsystems
 
+
+REM ADSP
 mkdir output\Subsystems\ADSP
 mkdir output\Subsystems\ADSP\ADSP
 
-echo Converting Analog DSP Image...
-bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/ADSP/qcadsp%SOC%.mbn ./extracted/modem/image/adsp.mdt"
+REM echo Converting Analog DSP Image...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/ADSP/qcadsp%SOC%.mbn ./extracted/vendor/firmware_mnt/image/adsp.mdt"
 
 echo Copying ADSP Protection Domain Registry Config files...
-xcopy /qchky /-i extracted\modem\image\adspr.jsn output\Subsystems\ADSP\adspr.jsn
-xcopy /qchky /-i extracted\modem\image\adspua.jsn output\Subsystems\ADSP\adspua.jsn
+xcopy /qchky /-i extracted\vendor\firmware_mnt\image\adspr.jsn output\Subsystems\ADSP\adspr.jsn
+xcopy /qchky /-i extracted\vendor\firmware_mnt\image\adsps.jsn output\Subsystems\ADSP\adsps.jsn
+xcopy /qchky /-i extracted\vendor\firmware_mnt\image\adspua.jsn output\Subsystems\ADSP\adspua.jsn
 
 echo Copying ADSP lib files...
 xcopy /qcheriky extracted\vendor\lib\rfsa\adsp output\Subsystems\ADSP\ADSP
-xcopy /qcheriky extracted\vendor\lib64\rfsa\adsp output\Subsystems\ADSP\ADSP
-xcopy /qcheriky extracted\dsp\adsp output\Subsystems\ADSP\ADSP
+xcopy /qcheriky extracted\vendor\dsp\adsp output\Subsystems\ADSP\ADSP
 
 echo Generating ADSP FASTRPC INF Configuration...
 tools\SuBExtInfUpdater-ADSP.exe output\Subsystems\ADSP\ADSP > output\Subsystems\ADSP\inf_configuration.txt
 
+
+REM CDSP
 mkdir output\Subsystems\CDSP
 mkdir output\Subsystems\CDSP\CDSP
 
-echo Converting Compute DSP Image...
-bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/CDSP/qccdsp%SOC%.mbn ./extracted/modem/image/cdsp.mdt"
+REM echo Converting Compute DSP Image...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/CDSP/qccdsp%SOC%.mbn ./extracted/vendor/firmware_mnt/image/cdsp.mdt"
 
 echo Copying CDSP Protection Domain Registry Config files...
-xcopy /qchky /-i extracted\modem\image\cdspr.jsn output\Subsystems\CDSP\cdspr.jsn
+xcopy /qchky /-i extracted\vendor\firmware_mnt\image\cdspr.jsn output\Subsystems\CDSP\cdspr.jsn
 
 echo Copying CDSP lib files...
-xcopy /qcheriky extracted\dsp\cdsp output\Subsystems\CDSP\CDSP
+xcopy /qcheriky extracted\vendor\dsp\cdsp output\Subsystems\CDSP\CDSP
 
 echo Generating CDSP FASTRPC INF Configuration...
 tools\SuBExtInfUpdater-CDSP.exe output\Subsystems\CDSP\CDSP > output\Subsystems\CDSP\inf_configuration.txt
 
-mkdir output\Subsystems\SLPI
-mkdir output\Subsystems\SLPI\SDSP
 
-echo Converting Sensor Low Power Interface DSP Image...
-bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/SLPI/qcslpi%SOC%.mbn ./extracted/modem/image/slpi.mdt"
-
-echo Copying SDSP Protection Domain Registry Config files...
-xcopy /qchky /-i extracted\modem\image\slpir.jsn output\Subsystems\SLPI\slpir.jsn
-xcopy /qchky /-i extracted\modem\image\slpius.jsn output\Subsystems\SLPI\slpius.jsn
-
-echo Copying SDSP lib files...
-xcopy /qcheriky extracted\dsp\sdsp output\Subsystems\SLPI\SDSP
-
-echo Generating SDSP FASTRPC INF Configuration...
-tools\SuBExtInfUpdater-SDSP.exe output\Subsystems\SLPI\SDSP > output\Subsystems\SLPI\inf_configuration.txt
-
+REM EVASS
 mkdir output\Subsystems\EVASS
 
 xcopy /qchky /-i extracted\vendor\firmware\evass.mbn output\Subsystems\EVASS\evass.mbn
 
+
+REM ICP
 mkdir output\Subsystems\ICP
 
 xcopy /qchky /-i extracted\vendor\firmware\CAMERA_ICP.elf output\Subsystems\ICP\CAMERA_ICP_AAAAAA.elf
 
+
+REM IPA
 mkdir output\Subsystems\IPA
 
 xcopy /qchky /-i extracted\vendor\firmware\ipa_fws.elf output\Subsystems\IPA\ipa_fws.elf
 
+
+REM MCFG
 mkdir output\Subsystems\MCFG
 mkdir output\Subsystems\MCFG\MCFG
 
 echo Generating MCFG TFTP INF Configuration...
-tools\SuBExtInfUpdater-MCFG.exe extracted\modem\image\modem_pr output\Subsystems\MCFG\MCFG > output\Subsystems\MCFG\inf_configuration.txt
+tools\SuBExtInfUpdater-MCFG.exe extracted\vendor\firmware-modem\image\modem_pr output\Subsystems\MCFG\MCFG > output\Subsystems\MCFG\inf_configuration.txt
 
-xcopy /qchky /-i extracted\modem\image\lahaina\qdsp6m.qdb output\Subsystems\MCFG\qdsp6m.qdb
+xcopy /qchky /-i extracted\vendor\firmware-modem\image\kodiak\qdsp6m.qdb output\Subsystems\MCFG\qdsp6m.qdb
 
+
+REM MPSS
 mkdir output\Subsystems\MPSS
 
 echo Copying MPSS Protection Domain Registry Config files...
-xcopy /qchky /-i extracted\modem\image\modemr.jsn output\Subsystems\MPSS\modemr.jsn
+xcopy /qchky /-i extracted\vendor\firmware-modem\image\modemr.jsn output\Subsystems\MPSS\modemr.jsn
 
-echo Converting Modem Processor Subsystem DSP Image...
-bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/MPSS/qcmpss%SOC%.mbn ./extracted/modem/image/modem.mdt"
+REM echo Converting Modem Processor Subsystem DSP Image...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/MPSS/qcmpss%SOC%.mbn ./extracted/vendor/firmware-modem/image/modem.mdt"
 
-mkdir output\Subsystems\SPSS
 
-xcopy /qchky /-i extracted\modem\image\spss1p.mbn output\Subsystems\SPSS\spss%SOC%v1p.mbn
-xcopy /qchky /-i extracted\modem\image\spss1t.mbn output\Subsystems\SPSS\spss%SOC%v1t.mbn
-
-xcopy /qchky /-i extracted\modem\image\asym1p.sig output\Subsystems\SPSS\asym1p.sig
-xcopy /qchky /-i extracted\modem\image\crypt1p.sig output\Subsystems\SPSS\crypt1p.sig
-xcopy /qchky /-i extracted\modem\image\keym1p.sig output\Subsystems\SPSS\keym1p.sig
-xcopy /qchky /-i extracted\modem\image\macch1p.sig output\Subsystems\SPSS\macch1p.sig
-
-xcopy /qchky /-i extracted\modem\image\asym1t.sig output\Subsystems\SPSS\asym1t.sig
-xcopy /qchky /-i extracted\modem\image\crypt1t.sig output\Subsystems\SPSS\crypt1t.sig
-xcopy /qchky /-i extracted\modem\image\keym1t.sig output\Subsystems\SPSS\keym1t.sig
-xcopy /qchky /-i extracted\modem\image\macch1t.sig output\Subsystems\SPSS\macch1t.sig
-
+REM Generate VENUS
 mkdir output\Subsystems\VENUS
 
-echo Copying Video Encoding Subsystem DSP Image...
-xcopy /qchky /-i extracted\vendor\firmware\vpu20_4v.mbn output\Subsystems\VENUS\qcvss%SOC%.mbn
+REM echo Converting Video Encoding Subsystem DSP Image...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/VENUS/qcvss%SOC%.mbn ./extracted/vendor/firmware_mnt/image/vpu20_1v.mdt"
 
+
+REM ZAP
 mkdir output\Subsystems\ZAP
 
-echo Converting GPU ZAP Shader Micro Code DSP Image...
-xcopy /qchky /-i extracted\vendor\firmware\a660_zap.elf output\Subsystems\ZAP\qcdxkmsuc%SOC%.mbn
+REM echo Converting GPU ZAP Shader Micro Code DSP Image...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/ZAP/qcdxkmsuc%SOC%.mbn ./extracted/vendor/firmware_mnt/image/a660_zap.mdt"
 
-mkdir output\Camera
 
-mkdir output\Camera\Rear
-
-xcopy /qchky /-i extracted\vendor\lib64\camera\com.qti.sensormodule.sony_imx563.bin output\Camera\Rear\com.qti.sensormodule.sony_imx563.bin
-xcopy /qchky /-i extracted\vendor\lib64\camera\com.qti.tuned.sony_imx563.bin output\Camera\Rear\com.qti.tuned.sony_imx563.bin
-
-mkdir output\Camera\Front
-
-xcopy /qchky /-i extracted\vendor\lib64\camera\com.qti.sensormodule.sony_front_imx481.bin output\Camera\Front\com.qti.sensormodule.sony_front_imx481.bin
-xcopy /qchky /-i extracted\vendor\lib64\camera\com.qti.tuned.sony_front_imx481.bin output\Camera\Front\com.qti.tuned.sony_front_imx481.bin
-
-mkdir output\Camera\Tele
-
-xcopy /qchky /-i extracted\vendor\lib64\camera\com.qti.sensormodule.sony_tele_imx481.bin output\Camera\Tele\com.qti.sensormodule.sony_tele_imx481.bin
-xcopy /qchky /-i extracted\vendor\lib64\camera\com.qti.tuned.sony_tele_imx481.bin output\Camera\Tele\com.qti.tuned.sony_tele_imx481.bin
-
-mkdir output\Camera\UW
-
-xcopy /qchky /-i extracted\vendor\lib64\camera\com.qti.sensormodule.sony_uw_imx481.bin output\Camera\UW\com.qti.sensormodule.sony_uw_imx481.bin
-xcopy /qchky /-i extracted\vendor\lib64\camera\com.qti.tuned.sony_uw_imx481.bin output\Camera\UW\com.qti.tuned.sony_uw_imx481.bin
-
-mkdir output\Camera\ToF
-
-xcopy /qchky /-i extracted\vendor\firmware\tof8801_firmware.bin output\Camera\ToF\tof8801_firmware.bin
-
-mkdir output\Touch
-mkdir output\Touch\Config
-
-echo Extracting N-Trig Digitizer Project Configuration Databases...
-tools\PSCFGDataReader.exe output\Touch\Config extracted\vendor\lib64\c1\libsurfacetouch_c1.so
-
-mkdir output\Touch\FW
-
-xcopy /qcheriky extracted\vendor\firmware\cfu\hid\touch\0C1D output\Touch\FW
-
-mkdir output\Pen
-mkdir output\Pen\FW
-
-xcopy /qcheriky extracted\vendor\firmware\cfu\hid\pen\0C0F output\Pen\FW
-
+REM Bluetooth
 mkdir output\BT
 
 echo Copying Blueooth Firmware Files...
-xcopy /qcheriky extracted\bluetooth\image output\BT
+xcopy /qcheriky /-i extracted\vendor\firmware\msbtfw11.tlv output\BT\msbtfw11.tlv
+xcopy /qcheriky /-i extracted\vendor\firmware\msnv11.bin output\BT\msnv11.bin
 
+
+REM WCNSS
+mkdir output\Subsystems\WCNSS
+
+xcopy /qchky extracted\vendor\firmware\qca6750\bdwlan.elf* output\Subsystems\WCNSS\
+xcopy /qchky /-i extracted\vendor\firmware\Data.msc output\Subsystems\WCNSS\Data.msc
+xcopy /qchky /-i extracted\vendor\firmware\qca6750\qdss_trace_config.cfg output\Subsystems\WCNSS\qdss_trace_config.bin
+xcopy /qchky /-i extracted\vendor\firmware\qca6750\regdb.bin output\Subsystems\WCNSS\regdb.bin
+
+
+REM Sensors
 mkdir output\Sensors
 mkdir output\Sensors\Config
 
@@ -232,96 +194,56 @@ mkdir output\Sensors\Proto
 
 xcopy /qcheriky extracted\vendor\etc\sensors\proto output\Sensors\Proto
 
+
+REM Audio
 mkdir output\Audio
 mkdir output\Audio\Cal
 
 xcopy /qchky /-i extracted\vendor\etc\acdbdata\adsp_avs_config.acdb output\Audio\Cal\adsp_avs_config.acdb
-xcopy /qcheriky extracted\vendor\etc\acdbdata\nn_ns_models output\Audio\Cal
-xcopy /qcheriky extracted\vendor\etc\acdbdata\nn_vad_models output\Audio\Cal
-xcopy /qcheriky extracted\vendor\etc\acdbdata\Surface\region\a output\Audio\Cal
-xcopy /qcheriky extracted\vendor\etc\acdbdata\Surface\region\b output\Audio\Cal
+
 
 mkdir output\Regulatory
 
-REM TODO: Remember where this is stored again
 
+REM TrEE
 mkdir output\TrEE
 
-echo Copying rtic (n=rtic;p=8:c47728cf3e4289,60:30080400a3001,b4;s=46;u=6238333e1eb7ea11b3de0242ac130004) QSEE Applet...
-xcopy /qchky /-i extracted\modem\image\rtic.mbn output\TrEE\rtic.mbn
+REM echo Converting engmode (n=engmode;p=8:c477a8cf3e4089,61,82:6004,b4) QSEE Applet...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/engmode.mbn ./extracted/vendor/firmware_mnt/image/engmode.mdt"
 
-echo Converting voiceprint (n=voiceprint;p=8:c47728cf3e4089,61,82:6004,b4) QSEE Applet...
-bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/voicepri.mbn ./extracted/modem/image/voicepri.mdt"
+REM echo Converting fingerpr (n=fingerprint;p=8:cc7728cf3ec089,61,82:6004,b4) QSEE Applet...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/fingerpr.mbn ./extracted/vendor/firmware_mnt/image/fingerpr.mdt"
 
-echo Copying widevine (C=true;n=widevine;p=8:c47728cf3e4089,5a:24,82:68048,b4,32b,4b1,dac;s=dac) QSEE Applet...
-xcopy /qchky /-i extracted\modem\image\widevine.mbn output\TrEE\widevine.mbn
+REM echo Converting hdcp1 (n=hdcp1;p=8:c477a8cf3e40893,61,82:6004,b4;s=55) QSEE Applet...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/hdcp1.mbn ./extracted/vendor/firmware_mnt/image/hdcp1.mdt"
 
-echo Copying mdcompress (n=mdcompress;p=8:c47728cf3e4089,61,84:1001,b4;s=3ff) QSEE Applet...
-xcopy /qchky /-i extracted\modem\image\mdcompress.mbn output\TrEE\mdcompress.mbn
+REM echo Converting hdcp2p2 (n=qcom.tz.hdcp2p2;p=8:c47728cf3e408911,5a:94,82:6004,b4;s=43,56) QSEE Applet...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/hdcp2p2.mbn ./extracted/vendor/firmware_mnt/image/hdcp2p2.mdt"
 
-echo Copying haventoken (n=haventoken;p=8:c477a8cf3e40890601,61,6e,82:6004,b4;s=4e,77;u=799df43fef36524fb7eb31d0aed47797) QSEE Applet...
-xcopy /qchky /-i extracted\modem\image\haventkn.mbn output\TrEE\haventkn.mbn
+REM echo Converting hdcpsrm (n=hdcpsrm;p=8:c47728cf3e4089,5d:8,82:6004,b4;s=5e) QSEE Applet...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/hdcpsrm.mbn ./extracted/vendor/firmware_mnt/image/hdcpsrm.mdt"
 
-echo Converting hdcpsrm (n=hdcpsrm;p=8:c47728cf3e4089,5d:8,82:6004,b4;s=5e) QSEE Applet...
-bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/hdcpsrm.mbn ./extracted/modem/image/hdcpsrm.mdt"
+REM echo Converting tz_hdm (n=tz_hdm;p=8:c47728cf3e4089,61,80:a1001,b4,106:81;s=122) QSEE Applet...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/tz_hdm.mbn ./extracted/vendor/firmware_mnt/image/tz_hdm.mdt"
 
-echo Converting qcom.tz.hdcp2p2 (n=qcom.tz.hdcp2p2;p=8:c47728cf3e408911,5a:94,82:6004,b4;s=43,56) QSEE Applet...
-bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/hdcp2p2.mbn ./extracted/modem/image/hdcp2p2.mdt"
+REM echo Converting tz_iccc (n=tz_iccc;p=8:c477a8cf3ec089,61,80:a1001,b4,400;s=106:81) QSEE Applet...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/tz_iccc.mbn ./extracted/vendor/firmware_mnt/image/tz_iccc.mdt"
 
-echo Converting hdcp1 (n=hdcp1;p=8:c477a8cf3e40893,61,82:6004,b4;s=55) QSEE Applet...
-bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/hdcp1.mbn ./extracted/modem/image/hdcp1.mdt"
+REM echo Converting tz_kg (n=tz_kg;p=8:c477a8cf3e4089,61,80:a1001,b4,122,1036640) QSEE Applet...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/tz_kg.mbn ./extracted/vendor/firmware_mnt/image/tz_kg.mdt"
 
-echo Converting fingerprint (m=x;n=fingerprint;p=8:cc7728cf3f4089,61,84:1001,b4) QSEE Applet...
-bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/fpcrel.mbn ./extracted/modem/image/fpcrel.mdt"
+REM echo Converting vaultkeeper (n=vaultkeeper;p=8:c477a8cf3e4089,61,82:6004,b4,1036640) QSEE Applet...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/vaultkeeper.mbn ./extracted/vendor/firmware_mnt/image/vaultkeeper.mdt"
 
-echo Converting smplap32 (f=2000;m=x;n=smplap32;p=8:cc7738cf7fe7891,60:3,82:6004,b4,12d,400,ff0001;u=706D6153656C70417000000000000032) QSEE Applet...
-bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/smplap64.mbn ./extracted/modem/image/smplap64.mdt"
+REM echo Converting voicepri (n=voiceprint;p=8:c47728cf3e4089,61,82:6004,b4) QSEE Applet...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/voicepri.mbn ./extracted/vendor/firmware_mnt/image/voicepri.mdt"
 
-echo Converting smplap64 (f=2000;n=smplap64;p=8:cc7738cf7fe7891,60:3,82:6004,b4,12d,400,ff0001;u=706D6153656C70417000000000000064) QSEE Applet...
-bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/smplap32.mbn ./extracted/modem/image/smplap32.mdt"
+echo Copying widevine (n=widevine;p=8:c47728cf3e4089,5a:24,82:68048,b4,32b,4b1,dac;s=dac) QSEE Applet...
+xcopy /qchky /-i extracted\vendor\firmware_mnt\image\widevine.mbn output\TrEE\widevine.mbn
 
-echo Converting featenabler (n=featenabler;p=8:c47728cf3e4089,61:6,77,82:6004,b4;u=7e1903bb7c17ff47b6d862337ca7db85) QSEE Applet...
-bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/featenabler.mbn ./extracted/modem/image/featenabler.mdt"
+REM echo Converting winsecap (n=qcom.tz.winsecapp;p=8:c47728cf3e5089,51:8108,82:6404,b4) QSEE Applet...
+REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/winsecap.mbn ./extracted/vendor/firmware_mnt/image/winsecap.mdt"
 
-
-REM START: Do we need those? They should already be loaded in UEFI.
-
-REM TODO: Trim
-echo Copying qcom.tz.uefisecapp (n=qcom.tz.uefisecapp;p=8:c47728cf3e4089,61,82:6004,b4) QSEE Applet...
-xcopy /qchky /-i extracted\uefisecapp.img output\TrEE\uefisecapp.mbn
-
-REM TODO: Trim
-echo Copying keymaster64 (n=keymaster64;o=100;p=8:c47728cf3e4489,61,82:6024,b4,12d:1;s=96) QSEE Applet...
-xcopy /qchky /-i extracted\keymaster.img output\TrEE\keymaster.mbn
-
-REM TODO: Trim
-echo Copying sfsecapp (n=sfsecapp;p=8:c47728cf3f6089,61,82:6004,b4) QSEE Applet...
-xcopy /qchky /-i extracted\sfsecapp.img output\TrEE\sfsecapp.mbn
-
-REM END: Do we need those? They should already be loaded in UEFI.
-
-
-mkdir output\UEFI
-
-echo Extracting XBL Image...
-tools\UEFIReader.exe extracted\XBL.img output\UEFI
-
-mkdir output\UEFI\ImageFV
-
-echo Extracting ImageFV Image...
-tools\UEFIReader.exe extracted\imagefv.img output\UEFI\ImageFV
-
-mkdir output\UEFI\ABL
-
-echo Extracting ABL Image...
-tools\UEFIReader.exe extracted\abl.img output\UEFI\ABL
-
-echo Cleaning up PIL Squasher Directory...
-rmdir /Q /S pil-squasher
-
-REM TODO: Get list of supported PM resources from AOP directly
-REM TODO: Extract QUP FW individual files
-REM TODO: devcfg parser?
 
 :eof
 exit /b 0

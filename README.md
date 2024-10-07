@@ -1,6 +1,6 @@
-# OEMC1 Firmware
+# A52sxq Firmware
 
-This repository holds the latest Firmware for OEMC1 devices alongside the scripts and tools used to generate the output folder, designed to be used for Windows.
+This repository holds the latest Firmware for A52sxq devices alongside the scripts and tools used to generate the output folder, designed to be used for Windows.
 
 ## Script
 
@@ -12,13 +12,11 @@ This repository holds the latest Firmware for OEMC1 devices alongside the script
 - Extract modem.img into extracted\modem
 - Copy abl.img into extracted
 - Copy aop.img into extracted
-- Copy cpucp.img into extracted
-- Copy featenabler.img into extracted
-- Copy imagefv.img into extracted
+- Copy cmnlib.img into extracted
+- Copy cmnlib64.img into extracted
 - Copy keymaster.img into extracted
 - Copy qupfw.img into extracted
-- Copy sfsecapp.img into extracted
-- Copy shrm.img into extracted
+- Copy sftpfw.img into extracted
 - Copy uefisecapp.img into extracted
 - Copy xbl.img into extracted
 - Run build.cmd
@@ -31,7 +29,7 @@ This repository holds the latest Firmware for OEMC1 devices alongside the script
  |_|      \_/\_/    |_____/_/\_\\__|_|  \__,_|\___|\__\___/|_|
 
 
-Target: OEMC1
-SoC   : SM8350
-RKH   : 34046EF5E08C14E01BE8883BFBE0E5C31A8E407B5B3B98C88F8A86C8D98C1235 (Microsoft Andromeda Attestation PCA 2017) (From: 11/1/2017 To: 11/1/2032)
+Target: A52sxq
+SoC   : SM7325
+RKH   : 2169476B5DB4A43D2475C40CA2A3B122CECD15361F437C488D7FE785FB6E8409 (Samsung Firmware Origin Attestation CA)
 ```
