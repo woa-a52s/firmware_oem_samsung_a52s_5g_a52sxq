@@ -4,21 +4,18 @@ This repository holds the latest Firmware for A52sxq devices alongside the scrip
 
 ## Script
 
-- Extract product.img into extracted\product
-- Extract vendor.img into extracted\vendor
-- Extract system_ext.img into extracted\system_ext
-- Extract bluetooth.img into extracted\bluetooth
-- Extract dsp.img into extracted\dsp
-- Extract modem.img into extracted\modem
-- Copy abl.img into extracted
-- Copy aop.img into extracted
-- Copy cmnlib.img into extracted
-- Copy cmnlib64.img into extracted
-- Copy keymaster.img into extracted
-- Copy qupfw.img into extracted
-- Copy sftpfw.img into extracted
-- Copy uefisecapp.img into extracted
-- Copy xbl.img into extracted
+- Extract vendor.img (contained in AP super.img) into extracted\vendor
+- Extract NON-HLOS.bin (contained in BL) into extracted\NON-HLOS
+- Extract modem.bin (contained in CP) into extracted\modem
+- Extract dspso.bin (contained in BL) into extracted\dsp
+- Copy abl.elf (contained in BL) into extracted
+- Copy aop.mbn (contained in BL) into extracted
+- Copy cpucp.elf (contained in BL) into extracted
+- Copy imagefv.elf (contained in BL) into extracted
+- Copy qupv3fw.elf (contained in BL) into extracted
+- Copy shrm.elf (contained in BL) into extracted
+- Copy uefi_sec.mbn (contained in BL) into extracted
+- Copy xbl.elf (contained in BL) into extracted
 - Run build.cmd
 
 ```
