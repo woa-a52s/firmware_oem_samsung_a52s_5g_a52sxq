@@ -152,6 +152,12 @@ vendor.hdm.internal.		u:object_r:vendor_hdm_internal_prop:s0
 
 # https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-9026
 vendor.camera.ppp.              u:object_r:vendor_camera_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-9886
+ro.vendor.uwb.feature.chipname                 u:object_r:vendor_uwb_feature_prop:s0
+
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-10267
+vendor.camera.unihal.enable   u:object_r:vendor_camera_prop:s0
 #line 1 "vendor/samsung/system/sepolicy/BSP/qcom/sepolicy/common/property_contexts"
 # http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/O_review_request/view/22964077
 # https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-4854

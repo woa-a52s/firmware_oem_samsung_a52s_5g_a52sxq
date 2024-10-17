@@ -24,7 +24,7 @@ on property:vendor.camera.ppp.erawstart=1
     write /dev/cpuctl/camera-daemon/cgroup.procs ${vendor.camera.ppp.erawtid}
     write /dev/blkio/cgroup.procs ${vendor.camera.ppp.erawtid}
     write /dev/freezer/cgroup.procs ${vendor.camera.ppp.erawtid}
-    
+
 on property:vendor.camera.ppp.nativestart=1
     write /dev/cpuset/camera-daemon/cgroup.procs ${vendor.camera.ppp.nativetid}
     write /dev/cpuctl/camera-daemon/cgroup.procs ${vendor.camera.ppp.nativetid}

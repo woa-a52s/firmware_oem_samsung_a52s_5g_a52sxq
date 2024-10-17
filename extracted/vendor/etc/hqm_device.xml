@@ -162,15 +162,6 @@
             <key_info keyname="CEFE" min="0" max="20" desc1="Crypto Engine Fatal Error count" desc2="" desc3="" desc4="" type1="0" type2="0"/>
             <key_info keyname="LLE" min="0" max="20" desc1="Link Lost Error count" desc2="" desc3="" desc4="" type1="0" type2="0"/>
         </sysfs_node>
-        <sysfs_node type="M" key="" value="/sys/block/sda/diskios" clear="1" >
-            <key_info keyname="Hours" min="" max="" desc1="Elapsed Hours" desc2="" desc3="" desc4="" type1="1" type2="0" />
-            <key_info keyname="ReadC" min="" max="" desc1="Read Count" desc2="" desc3="" desc4="" type1="1" type2="0" />
-            <key_info keyname="ReadKB" min="" max="" desc1="Read KBs" desc2="" desc3="" desc4="" type1="1" type2="0" />
-            <key_info keyname="WriteC" min="" max="" desc1="Write Count" desc2="" desc3="" desc4="" type1="1" type2="0" />
-            <key_info keyname="WriteKB" min="" max="" desc1="Write KBs" desc2="" desc3="" desc4="" type1="1" type2="0" />
-            <key_info keyname="DiscardC" min="" max="" desc1="Discard Count" desc2="" desc3="" desc4="" type1="1" type2="0" />
-            <key_info keyname="DiscardKB" min="" max="" desc1="Discard KBs" desc2="" desc3="" desc4="" type1="1" type2="0" />
-        </sysfs_node>
         <sysfs_node type="M" key="" value="/sys/class/scsi_host/host0/sense_err_count" clear="0" >
             <key_info keyname="MEDIUM" min="0" max="20" desc1="Medium Error count" desc2="" desc3="" desc4="" type1="1" type2="0" />
             <key_info keyname="HWERR" min="0" max="20" desc1="HW Error count" desc2="" desc3="" desc4="" type1="1" type2="0" />
@@ -255,6 +246,27 @@
             <key_info keyname="CEFE" min="0" max="20" desc1="Crypto Engine Fatal Error count" desc2="" desc3="" desc4="" type1="0" type2="0"/>
             <key_info keyname="LLE" min="0" max="20" desc1="Link Lost Error count" desc2="" desc3="" desc4="" type1="0" type2="0"/>
         </sysfs_node>
+        <sysfs_node type="M" key="" value="/sys/class/scsi_host/host0/sense_err_count" clear="0" >
+            <key_info keyname="MEDIUM" min="0" max="20" desc1="Medium Error count" desc2="" desc3="" desc4="" type1="1" type2="0" />
+            <key_info keyname="HWERR" min="0" max="20" desc1="HW Error count" desc2="" desc3="" desc4="" type1="1" type2="0" />
+        </sysfs_node>
+        <sysfs_node type="S" key="UFSLC" value="/sys/class/scsi_host/host0/lc" clear="0" >
+            <key_info keyname="UFSLC" min="" max="" desc1="UFS LVD count" desc2="" desc3="" desc4="" type1="1" type2="0" />
+        </sysfs_node>
+      </condition_info>
+      <condition_info path="/sys/kernel/blk_sec_stats/diskios" value="" >
+        <sysfs_node type="M" key="" value="/sys/kernel/blk_sec_stats/diskios" clear="1" >
+            <key_info keyname="Hours" min="" max="" desc1="Elapsed Hours" desc2="" desc3="" desc4="" type1="1" type2="0" />
+            <key_info keyname="ReadC" min="" max="" desc1="Read Count" desc2="" desc3="" desc4="" type1="1" type2="0" />
+            <key_info keyname="ReadKB" min="" max="" desc1="Read KBs" desc2="" desc3="" desc4="" type1="1" type2="0" />
+            <key_info keyname="WriteC" min="" max="" desc1="Write Count" desc2="" desc3="" desc4="" type1="1" type2="0" />
+            <key_info keyname="WriteKB" min="" max="" desc1="Write KBs" desc2="" desc3="" desc4="" type1="1" type2="0" />
+            <key_info keyname="DiscardC" min="" max="" desc1="Discard Count" desc2="" desc3="" desc4="" type1="1" type2="0" />
+            <key_info keyname="DiscardKB" min="" max="" desc1="Discard KBs" desc2="" desc3="" desc4="" type1="1" type2="0" />
+            <key_info keyname="IOT" min="" max="" desc1="IO Time" desc2="" desc3="" desc4="" type1="1" type2="0" />
+        </sysfs_node>
+      </condition_info>
+      <condition_info path="/sys/block/sda/diskios" value="" >
         <sysfs_node type="M" key="" value="/sys/block/sda/diskios" clear="1" >
             <key_info keyname="Hours" min="" max="" desc1="Elapsed Hours" desc2="" desc3="" desc4="" type1="1" type2="0" />
             <key_info keyname="ReadC" min="" max="" desc1="Read Count" desc2="" desc3="" desc4="" type1="1" type2="0" />
@@ -263,14 +275,8 @@
             <key_info keyname="WriteKB" min="" max="" desc1="Write KBs" desc2="" desc3="" desc4="" type1="1" type2="0" />
             <key_info keyname="DiscardC" min="" max="" desc1="Discard Count" desc2="" desc3="" desc4="" type1="1" type2="0" />
             <key_info keyname="DiscardKB" min="" max="" desc1="Discard KBs" desc2="" desc3="" desc4="" type1="1" type2="0" />
-        </sysfs_node>
-        <sysfs_node type="M" key="" value="/sys/class/scsi_host/host0/sense_err_count" clear="0" >
-            <key_info keyname="MEDIUM" min="0" max="20" desc1="Medium Error count" desc2="" desc3="" desc4="" type1="1" type2="0" />
-            <key_info keyname="HWERR" min="0" max="20" desc1="HW Error count" desc2="" desc3="" desc4="" type1="1" type2="0" />
-        </sysfs_node>
-        <sysfs_node type="S" key="UFSLC" value="/sys/class/scsi_host/host0/lc" clear="0" >
-            <key_info keyname="UFSLC" min="" max="" desc1="UFS LVD count" desc2="" desc3="" desc4="" type1="1" type2="0" />
-        </sysfs_node>
+            <key_info keyname="IOT" min="" max="" desc1="IO Time" desc2="" desc3="" desc4="" type1="1" type2="0" />
+       </sysfs_node>
       </condition_info>
     </hwparam_info>
     <hwparam_info compID="UFS" feature="SUFS" hitType="sm" compVer="0.0" compManufacture="" order_compID="2" order_feature="2" >

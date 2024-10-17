@@ -2120,6 +2120,7 @@
         <package name="com.samsung.android.coldwalletservice" seinfo="platform" />
         <package name="com.samsung.android.digitalkey" seinfo="platform" />
         <package name="com.samsung.android.carkey" seinfo="platform" />
+        <package name="com.samsung.android.ssiframework" seinfo="platform" />
     </service>
 
 
@@ -2150,18 +2151,21 @@
             <package name="com.samsung.android.certenrollservice.scep" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmp" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmc" seinfo="platform" />
+            <package name="com.samsung.android.knox.zt.framework" seinfo="platform" />
         </method>
 
         <method name="deleteCertificateInternal">
             <package name="com.samsung.android.certenrollservice.scep" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmp" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmc" seinfo="platform" />
+            <package name="com.samsung.android.knox.zt.framework" seinfo="platform" />
         </method>
 
         <method name="addPackagesToWhiteListInternal">
             <package name="com.samsung.android.certenrollservice.scep" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmp" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmc" seinfo="platform" />
+            <package name="com.samsung.android.knox.zt.framework" seinfo="platform" />
         </method>
     </service>
 
@@ -2174,6 +2178,7 @@
             <package name="com.samsung.android.certenrollservice.scep" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmp" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmc" seinfo="platform" />
+            <package name="com.samsung.android.knox.zt.framework" seinfo="platform" />
         </method>
 
         <method name="delegateLoadTa">

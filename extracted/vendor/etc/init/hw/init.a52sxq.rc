@@ -157,10 +157,6 @@ service heimdalld /system/bin/heimdalld
     socket heimdalld seqpacket 0660 system system
     oneshot
 
-# SSU (Samsung SIM Unlock)
-on property:ro.boot.carrierid=MXO
-    setprop ssu.support 1
-
 # some priv-apps of SPR bind mount to TMB priv-apps
 on post-fs-data && property:ro.csc.sales_code=TMB
     umount /system/carrier

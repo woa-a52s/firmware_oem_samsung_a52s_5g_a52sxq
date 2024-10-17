@@ -164,6 +164,7 @@ REM Bluetooth
 mkdir output\BT
 
 echo Copying Blueooth Firmware Files...
+xcopy /qcheriky /-i extracted\vendor\firmware\msbtfw11.mbn output\BT\msbtfw11.mbn
 xcopy /qcheriky /-i extracted\vendor\firmware\msbtfw11.tlv output\BT\msbtfw11.tlv
 xcopy /qcheriky /-i extracted\vendor\firmware\msnv11.bin output\BT\msnv11.bin
 
@@ -241,6 +242,9 @@ xcopy /qchky /-i extracted\NON-HLOS\image\widevine.mbn output\TrEE\widevine.mbn
 
 REM echo Converting winsecap (n=qcom.tz.winsecapp;p=8:c47728cf3e5089,51:8108,82:6404,b4) QSEE Applet...
 REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/winsecap.mbn ./extracted/NON-HLOS/image/winsecap.mdt"
+
+echo Copying rtic (n=rtic;p=8:c47728cf3e4289,60:30080400a3001,b4;s=46;u=6238333e1eb7ea11b3de0242ac130004) QSEE Applet...
+xcopy /qchky /-i extracted\NON-HLOS\image\widevine.mbn output\TrEE\widevine.mbn
 
 
 mkdir output\UEFI
