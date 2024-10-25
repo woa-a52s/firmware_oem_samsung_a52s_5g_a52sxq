@@ -31,7 +31,7 @@ echo "Converting GPU ZAP Shader Micro Code DSP Image..."
 
 # WCNSS
 mkdir -p output/Subsystems/WCNSS
-echo "Squashing WCNSS"
+echo "Converting Wireless Processor Subsystem Image..."
 ./tools/pil-squasher ./output/Subsystems/WCNSS/wpss.mbn ./extracted/vendor/firmware/wpss.mdt
 
 

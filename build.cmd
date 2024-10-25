@@ -54,19 +54,6 @@ for /f %%f in ('dir /b /s extracted\*.img') do (
 REM echo Cleaning up Output Directory...
 REM rmdir /Q /S output
 
-REM echo Cleaning up PIL Squasher Directory...
-REM rmdir /Q /S pil-squasher
-
-REM echo Cloning PIL Squasher...
-
-REM git clone https://github.com/linux-msm/pil-squasher
-
-REM echo Building PIL Squasher...
-
-REM cd pil-squasher
-REM bash.exe -c make
-REM cd ..
-
 mkdir output
 mkdir output\Subsystems
 
@@ -75,8 +62,8 @@ REM ADSP
 mkdir output\Subsystems\ADSP
 mkdir output\Subsystems\ADSP\ADSP
 
-REM echo Converting Analog DSP Image...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/ADSP/qcadsp%SOC%.mbn ./extracted/NON-HLOS/image/adsp.mdt"
+echo Converting Analog DSP Image...
+python tools\pil-squasher.py ./output/Subsystems/ADSP/qcadsp%SOC%.mbn ./extracted/NON-HLOS/image/adsp.mdt
 
 echo Copying ADSP Protection Domain Registry Config files...
 xcopy /qchky /-i extracted\NON-HLOS\image\adspr.jsn output\Subsystems\ADSP\adspr.jsn
@@ -84,7 +71,7 @@ xcopy /qchky /-i extracted\NON-HLOS\image\adsps.jsn output\Subsystems\ADSP\adsps
 xcopy /qchky /-i extracted\NON-HLOS\image\adspua.jsn output\Subsystems\ADSP\adspua.jsn
 
 echo Copying ADSP lib files...
-xcopy /qcheriky extracted\vendor\lib\rfsa\adsp output\Subsystems\ADSP\ADSP
+REM xcopy /qcheriky extracted\vendor\lib\rfsa\adsp output\Subsystems\ADSP\ADSP
 xcopy /qcheriky extracted\dsp\adsp output\Subsystems\ADSP\ADSP
 
 echo Generating ADSP FASTRPC INF Configuration...
@@ -95,8 +82,8 @@ REM CDSP
 mkdir output\Subsystems\CDSP
 mkdir output\Subsystems\CDSP\CDSP
 
-REM echo Converting Compute DSP Image...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/CDSP/qccdsp%SOC%.mbn ./extracted/NON-HLOS/image/cdsp.mdt"
+echo Converting Compute DSP Image...
+python tools\pil-squasher.py ./output/Subsystems/CDSP/qccdsp%SOC%.mbn ./extracted/NON-HLOS/image/cdsp.mdt
 
 echo Copying CDSP Protection Domain Registry Config files...
 xcopy /qchky /-i extracted\NON-HLOS\image\cdspr.jsn output\Subsystems\CDSP\cdspr.jsn
@@ -142,22 +129,22 @@ mkdir output\Subsystems\MPSS
 echo Copying MPSS Protection Domain Registry Config files...
 xcopy /qchky /-i extracted\modem\image\modemr.jsn output\Subsystems\MPSS\modemr.jsn
 
-REM echo Converting Modem Processor Subsystem DSP Image...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/MPSS/qcmpss%SOC%.mbn ./extracted/modem/image/modem.mdt"
+echo Converting Modem Processor Subsystem DSP Image...
+python tools\pil-squasher.py ./output/Subsystems/MPSS/qcmpss%SOC%.mbn ./extracted/modem/image/modem.mdt
 
 
 REM Generate VENUS
 mkdir output\Subsystems\VENUS
 
-REM echo Converting Video Encoding Subsystem DSP Image...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/VENUS/qcvss%SOC%.mbn ./extracted/NON-HLOS/image/vpu20_1v.mdt"
+echo Converting Video Encoding Subsystem DSP Image...
+python tools\pil-squasher.py ./output/Subsystems/VENUS/qcvss%SOC%.mbn ./extracted/NON-HLOS/image/vpu20_1v.mdt
 
 
 REM ZAP
 mkdir output\Subsystems\ZAP
 
-REM echo Converting GPU ZAP Shader Micro Code DSP Image...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/Subsystems/ZAP/qcdxkmsuc%SOC%.mbn ./extracted/NON-HLOS/image/a660_zap.mdt"
+echo Converting GPU ZAP Shader Micro Code DSP Image...
+python tools\pil-squasher.py ./output/Subsystems/ZAP/qcdxkmsuc%SOC%.mbn ./extracted/NON-HLOS/image/a660_zap.mdt
 
 
 REM Bluetooth
@@ -169,14 +156,16 @@ xcopy /qcheriky /-i extracted\vendor\firmware\msbtfw11.tlv output\BT\msbtfw11.tl
 xcopy /qcheriky /-i extracted\vendor\firmware\msnv11.bin output\BT\msnv11.bin
 
 
-REM WCNSS
-mkdir output\Subsystems\WCNSS
+REM WPSS
+mkdir output\Subsystems\WPSS
 
-xcopy /qchky extracted\vendor\firmware\qca6750\bdwlan.elf* output\Subsystems\WCNSS\
-xcopy /qchky /-i extracted\vendor\firmware\Data.msc output\Subsystems\WCNSS\Data.msc
-xcopy /qchky /-i extracted\vendor\firmware\qca6750\qdss_trace_config.cfg output\Subsystems\WCNSS\qdss_trace_config.bin
-xcopy /qchky /-i extracted\vendor\firmware\qca6750\regdb.bin output\Subsystems\WCNSS\regdb.bin
+xcopy /qchky extracted\vendor\firmware\qca6750\bdwlan.elf* output\Subsystems\WPSS\
+xcopy /qchky /-i extracted\vendor\firmware\Data.msc output\Subsystems\WPSS\Data.msc
+xcopy /qchky /-i extracted\vendor\firmware\qca6750\qdss_trace_config.cfg output\Subsystems\WPSS\qdss_trace_config.bin
+xcopy /qchky /-i extracted\vendor\firmware\qca6750\regdb.bin output\Subsystems\WPSS\regdb.bin
 
+echo Converting Wireless Processor Subsystem Image...
+python tools\pil-squasher.py ./output/Subsystems/WPSS/wpss.mbn ./extracted/vendor/firmware/wpss.mdt
 
 REM Sensors
 mkdir output\Sensors
@@ -207,44 +196,44 @@ mkdir output\Regulatory
 REM TrEE
 mkdir output\TrEE
 
-REM echo Converting engmode (n=engmode;p=8:c477a8cf3e4089,61,82:6004,b4) QSEE Applet...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/engmode.mbn ./extracted/NON-HLOS/image/engmode.mdt"
+echo Converting engmode (n=engmode;p=8:c477a8cf3e4089,61,82:6004,b4) QSEE Applet...
+python tools\pil-squasher.py ./output/TrEE/engmode.mbn ./extracted/NON-HLOS/image/engmode.mdt
 
-REM echo Converting fingerpr (n=fingerprint;p=8:cc7728cf3ec089,61,82:6004,b4) QSEE Applet...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/fingerpr.mbn ./extracted/NON-HLOS/image/fingerpr.mdt"
+echo Converting fingerpr (n=fingerprint;p=8:cc7728cf3ec089,61,82:6004,b4) QSEE Applet...
+python tools\pil-squasher.py ./output/TrEE/fingerpr.mbn ./extracted/NON-HLOS/image/fingerpr.mdt
 
-REM echo Converting hdcp1 (n=hdcp1;p=8:c477a8cf3e40893,61,82:6004,b4;s=55) QSEE Applet...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/hdcp1.mbn ./extracted/NON-HLOS/image/hdcp1.mdt"
+echo Converting hdcp1 (n=hdcp1;p=8:c477a8cf3e40893,61,82:6004,b4;s=55) QSEE Applet...
+python tools\pil-squasher.py ./output/TrEE/hdcp1.mbn ./extracted/NON-HLOS/image/hdcp1.mdt
 
-REM echo Converting hdcp2p2 (n=qcom.tz.hdcp2p2;p=8:c47728cf3e408911,5a:94,82:6004,b4;s=43,56) QSEE Applet...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/hdcp2p2.mbn ./extracted/NON-HLOS/image/hdcp2p2.mdt"
+echo Converting hdcp2p2 (n=qcom.tz.hdcp2p2;p=8:c47728cf3e408911,5a:94,82:6004,b4;s=43,56) QSEE Applet...
+python tools\pil-squasher.py ./output/TrEE/hdcp2p2.mbn ./extracted/NON-HLOS/image/hdcp2p2.mdt
 
-REM echo Converting hdcpsrm (n=hdcpsrm;p=8:c47728cf3e4089,5d:8,82:6004,b4;s=5e) QSEE Applet...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/hdcpsrm.mbn ./extracted/NON-HLOS/image/hdcpsrm.mdt"
+echo Converting hdcpsrm (n=hdcpsrm;p=8:c47728cf3e4089,5d:8,82:6004,b4;s=5e) QSEE Applet...
+python tools\pil-squasher.py ./output/TrEE/hdcpsrm.mbn ./extracted/NON-HLOS/image/hdcpsrm.mdt
 
-REM echo Converting tz_hdm (n=tz_hdm;p=8:c47728cf3e4089,61,80:a1001,b4,106:81;s=122) QSEE Applet...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/tz_hdm.mbn ./extracted/NON-HLOS/image/tz_hdm.mdt"
+echo Converting tz_hdm (n=tz_hdm;p=8:c47728cf3e4089,61,80:a1001,b4,106:81;s=122) QSEE Applet...
+python tools\pil-squasher.py ./output/TrEE/tz_hdm.mbn ./extracted/NON-HLOS/image/tz_hdm.mdt
 
-REM echo Converting tz_iccc (n=tz_iccc;p=8:c477a8cf3ec089,61,80:a1001,b4,400;s=106:81) QSEE Applet...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/tz_iccc.mbn ./extracted/NON-HLOS/image/tz_iccc.mdt"
+echo Converting tz_iccc (n=tz_iccc;p=8:c477a8cf3ec089,61,80:a1001,b4,400;s=106:81) QSEE Applet...
+python tools\pil-squasher.py ./output/TrEE/tz_iccc.mbn ./extracted/NON-HLOS/image/tz_iccc.mdt
 
-REM echo Converting tz_kg (n=tz_kg;p=8:c477a8cf3e4089,61,80:a1001,b4,122,1036640) QSEE Applet...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/tz_kg.mbn ./extracted/NON-HLOS/image/tz_kg.mdt"
+echo Converting tz_kg (n=tz_kg;p=8:c477a8cf3e4089,61,80:a1001,b4,122,1036640) QSEE Applet...
+python tools\pil-squasher.py ./output/TrEE/tz_kg.mbn ./extracted/NON-HLOS/image/tz_kg.mdt
 
-REM echo Converting vaultkeeper (n=vaultkeeper;p=8:c477a8cf3e4089,61,82:6004,b4,1036640) QSEE Applet...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/vaultkeeper.mbn ./extracted/NON-HLOS/image/vaultkeeper.mdt"
+echo Converting vaultkeeper (n=vaultkeeper;p=8:c477a8cf3e4089,61,82:6004,b4,1036640) QSEE Applet...
+python tools\pil-squasher.py ./output/TrEE/vaultkeeper.mbn ./extracted/NON-HLOS/image/vaultkeeper.mdt
 
-REM echo Converting voicepri (n=voiceprint;p=8:c47728cf3e4089,61,82:6004,b4) QSEE Applet...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/voicepri.mbn ./extracted/NON-HLOS/image/voicepri.mdt"
+echo Converting voicepri (n=voiceprint;p=8:c47728cf3e4089,61,82:6004,b4) QSEE Applet...
+python tools\pil-squasher.py ./output/TrEE/voicepri.mbn ./extracted/NON-HLOS/image/voicepri.mdt
 
 echo Copying widevine (n=widevine;p=8:c47728cf3e4089,5a:24,82:68048,b4,32b,4b1,dac;s=dac) QSEE Applet...
 xcopy /qchky /-i extracted\NON-HLOS\image\widevine.mbn output\TrEE\widevine.mbn
 
-REM echo Converting winsecap (n=qcom.tz.winsecapp;p=8:c47728cf3e5089,51:8108,82:6404,b4) QSEE Applet...
-REM bash.exe -c "./pil-squasher/pil-squasher ./output/TrEE/winsecap.mbn ./extracted/NON-HLOS/image/winsecap.mdt"
+echo Converting winsecap (n=qcom.tz.winsecapp;p=8:c47728cf3e5089,51:8108,82:6404,b4) QSEE Applet...
+python tools\pil-squasher.py ./output/TrEE/winsecap.mbn ./extracted/NON-HLOS/image/winsecap.mdt
 
 echo Copying rtic (n=rtic;p=8:c47728cf3e4289,60:30080400a3001,b4;s=46;u=6238333e1eb7ea11b3de0242ac130004) QSEE Applet...
-xcopy /qchky /-i extracted\NON-HLOS\image\widevine.mbn output\TrEE\widevine.mbn
+xcopy /qchky /-i extracted\NON-HLOS\image\rtic.mbn output\TrEE\rtic.mbn
 
 
 mkdir output\UEFI
