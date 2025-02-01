@@ -89,7 +89,6 @@
             <package name="com.samsung.android.mdm" seinfo="platform" />
             <package name="com.samsung.android.settings" seinfo="platform" />
             <package name="com.sec.android.emergencylauncher" seinfo="platform" />
-            <package name="com.sec.android.emergencymode.service" seinfo="platform" />
             <package name="com.android.settings" seinfo="platform" />
             <package name="com.samsung.knox.securefolder" seinfo="platform" />
             <package name="com.android.systemui" seinfo="platform" />
@@ -1694,7 +1693,7 @@
 
         <method name="getSeinfo">
             <package name="com.samsung.android.bbc.bbcagent" seinfo="platform" />
-        </method>
+        </method>    
     </service>
 
     <service name="KnoxMUMContainerPolicy">
@@ -2120,7 +2119,6 @@
         <package name="com.samsung.android.coldwalletservice" seinfo="platform" />
         <package name="com.samsung.android.digitalkey" seinfo="platform" />
         <package name="com.samsung.android.carkey" seinfo="platform" />
-        <package name="com.samsung.android.ssiframework" seinfo="platform" />
     </service>
 
 
@@ -2151,21 +2149,18 @@
             <package name="com.samsung.android.certenrollservice.scep" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmp" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmc" seinfo="platform" />
-            <package name="com.samsung.android.knox.zt.framework" seinfo="platform" />
         </method>
 
         <method name="deleteCertificateInternal">
             <package name="com.samsung.android.certenrollservice.scep" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmp" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmc" seinfo="platform" />
-            <package name="com.samsung.android.knox.zt.framework" seinfo="platform" />
         </method>
 
         <method name="addPackagesToWhiteListInternal">
             <package name="com.samsung.android.certenrollservice.scep" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmp" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmc" seinfo="platform" />
-            <package name="com.samsung.android.knox.zt.framework" seinfo="platform" />
         </method>
     </service>
 
@@ -2178,25 +2173,24 @@
             <package name="com.samsung.android.certenrollservice.scep" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmp" seinfo="platform" />
             <package name="com.samsung.android.certenrollservice.cmc" seinfo="platform" />
-            <package name="com.samsung.android.knox.zt.framework" seinfo="platform" />
         </method>
-
+        
         <method name="delegateLoadTa">
             <package name="com.samsung.ucs.agent.ese" seinfo="platform" />
         </method>
-
+        
         <method name="delegateUnloadTa">
             <package name="com.samsung.ucs.agent.ese" seinfo="platform" />
         </method>
-
+        
         <method name="delegateGetTaProfile">
             <package name="com.samsung.ucs.agent.ese" seinfo="platform" />
         </method>
-
+        
         <method name="delegateWrapSessionKey">
             <package name="com.samsung.ucs.agent.ese" seinfo="platform" />
         </method>
-
+        
         <method name="delegateProcessTACommand">
             <package name="com.samsung.ucs.agent.ese" seinfo="platform" />
         </method>

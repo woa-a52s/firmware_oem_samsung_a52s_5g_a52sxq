@@ -107,6 +107,7 @@
 /vendor/lib/modules/5.4-gki/msm-cvp.ko: /vendor/lib/modules/5.4-gki/synx-driver.ko /vendor/lib/modules/5.4-gki/qcom_llcc.ko /vendor/lib/modules/5.4-gki/subsystem_restart.ko /vendor/lib/modules/5.4-gki/qmi_helpers.ko
 /vendor/lib/modules/5.4-gki/usb_typec_manager.ko: /vendor/lib/modules/5.4-gki/common_muic.ko /vendor/lib/modules/5.4-gki/pdic_notifier_module.ko
 /vendor/lib/modules/5.4-gki/extcon-usb-gpio.ko:
+/vendor/lib/modules/5.4-gki/kperfmon.ko:
 /vendor/lib/modules/5.4-gki/ipa_fmwk.ko:
 /vendor/lib/modules/5.4-gki/i2c-msm-geni.ko: /vendor/lib/modules/5.4-gki/msm-geni-se.ko
 /vendor/lib/modules/5.4-gki/sec_secure_touch.ko:

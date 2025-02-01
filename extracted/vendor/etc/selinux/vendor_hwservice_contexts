@@ -84,8 +84,6 @@ vendor.samsung.hardware.bluetooth.audio::ISehBluetoothAudioProvidersFactory			 u
 vendor.samsung.hardware.bluetooth.audio@2.0::ISehBluetoothAudioProvidersFactory			 u:object_r:hal_audio_hwservice:s0
 vendor.samsung.hardware.kpm::ISehKpm			u:object_r:hal_kpm_hwservice:s0
 vendor.samsung.hardware.ifaa::ISehIfaa													u:object_r:hal_ifaa_hwservice:s0
-vendor.samsung.hardware.camera.vcc::ISehVccCameraManager		u:object_r:hal_camera_hwservice:s0
-vendor.samsung.hardware.camera.vcc@1.0::ISehVccCameraManager		u:object_r:hal_camera_hwservice:s0
 vendor.samsung.hardware.radio.channel.V2_0::ISehChannel									u:object_r:hal_telephony_hwservice:s0
 vendor.samsung.hardware.digitaltv.fullseg::IFullseg      u:object_r:digitaltv_fullseg_hwservice:s0
 vendor.samsung.hardware.dtvtuner::IDtvTuner               u:object_r:digitaltv_fullseg_hwservice:s0

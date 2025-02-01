@@ -144,12 +144,6 @@ on boot
     chown system system /efs/taas/taaslog
     chmod 0660 /efs/taas/taaslog
 
-    # Permission for Kyeboard
-    chown system system /sys/class/sec/sec_keypad/enabled
-    chmod 0660 /sys/class/sec/sec_keypad/enabled
-    chown system system /sys/class/sec/sec_keypad/sec_pogo_keyboard_fw
-    chmod 0220 /sys/class/sec/sec_keypad/sec_pogo_keyboard_fw
-
 # enabled permission
 on property:sys.boot_completed=1
     chown system system /sys/class/sec/tsp/input/enabled

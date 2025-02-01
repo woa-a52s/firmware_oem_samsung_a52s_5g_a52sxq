@@ -144,20 +144,9 @@ vendor.hwc.exynos.vsync_mode 								u:object_r:vendor_hwc_vsync_prop:s0
 persist.vendor.snaplite_cache_status_64				u:object_r:vendor_snap_cache_prop:s0
 persist.vendor.snaplite_cache_integrity_64			u:object_r:vendor_snap_cache_prop:s0
 
-# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-8814/8865
-vendor.hdm.swblock		u:object_r:vendor_hdm_public_prop:s0 exact string
-ro.vendor.hdm.			u:object_r:vendor_hdm_restricted_prop:s0
-vendor.hdm.			u:object_r:vendor_hdm_restricted_prop:s0
-vendor.hdm.internal.		u:object_r:vendor_hdm_internal_prop:s0
+# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-8814
+vendor.hdm.			u:object_r:vendor_hdm_prop:s0
 
-# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-9026
-vendor.camera.ppp.              u:object_r:vendor_camera_prop:s0
-
-# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-9886
-ro.vendor.uwb.feature.chipname                 u:object_r:vendor_uwb_feature_prop:s0
-
-# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-10267
-vendor.camera.unihal.enable   u:object_r:vendor_camera_prop:s0
 #line 1 "vendor/samsung/system/sepolicy/BSP/qcom/sepolicy/common/property_contexts"
 # http://mobilerndhub.sec.samsung.net/hub/site/seandroid/board/O_review_request/view/22964077
 # https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-4854
@@ -171,9 +160,6 @@ ro.vendor.wifi.sap.interface       u:object_r:vendor_wifi_prop:s0
 
 # https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-6928
 vendor.qcom.wifi.macloader         u:object_r:vendor_wifi_prop:s0
-
-# https://mobilerndhub.sec.samsung.net/its/browse/SEANDROID-9458
-vendor.bluetooth_init_fail			u:object_r:vendor_bluetooth_prop:s0
 #line 1 "device/qcom/sepolicy_vndr/generic/vendor/common/property_contexts"
 # Copyright (c) 2018-2020, The Linux Foundation. All rights reserved.
 #

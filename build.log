@@ -619,7 +619,7 @@ RKH : EXCEPTION!
 
 
 File: C:\Users\Arminas\Desktop\firmware_oem_samsung_a52s_5g_a52sxq\extracted\vendor\etc\plmn_se13.bin
-RKH : FAIL!
+RKH : EXCEPTION!
 
 
 File: C:\Users\Arminas\Desktop\firmware_oem_samsung_a52s_5g_a52sxq\extracted\vendor\etc\snaplite_cache.bin
@@ -939,6 +939,7 @@ RKH : EXCEPTION!
 
 Checking IMG files validity... (This may take a while!)
 File Not Found
+A subdirectory or file output already exists.
 Converting Analog DSP Image...
 Copying ADSP Protection Domain Registry Config files...
 1 File(s) copied
