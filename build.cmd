@@ -8,15 +8,15 @@ echo. ^|  _^|   \ V  V /   ^| ^|___ ^>  ^<^| ^|_^| ^| ^| ^(_^| ^| ^(__^| ^|^| ^(
 echo. ^|_^|      \_/\_/    ^|_____/_/\_\\__^|_^|  \__,_^|\___^|\__\___/^|_^|   
 echo.                                                                 
 
-REM A52sxq Root Key Hashes
-set RKH_LIST=2169476B5DB4A43D2475C40CA2A3B122CECD15361F437C488D7FE785FB6E8409 959B8D0549EF41BEFABC24F51EFE84FEE366AC169AB04A0DB30C799B324FD798 A9F671F167DDE185AEDA9D391F94B5E1A25DB2F1156FF7117DE41B681F526C42 F8AB20526358C4FA4CEF96D78C45180DC3DB75E8F24051AD624448C134B4E861
+REM A52sxq Root Key Hash
+set RKH=2169476B5DB4A43D2475C40CA2A3B122CECD15361F437C488D7FE785FB6E8409
 
 set SOC=7325
 
 echo.
 echo Target: A52sxq
 echo SoC   : SM%SOC%
-echo RKH   : %RKH_LIST% (Samsung Attestation CA) (From: Nov 3 2023 GMT To: Oct 29 2043 GMT)
+echo RKH   : %RKH% (Samsung Attestation CA) (From: Nov 3 2023 GMT To: Oct 29 2043 GMT)
 echo.
 
 for /f %%f in ('dir /b /s extracted\*.mbn.unsigned') do (
@@ -71,7 +71,6 @@ xcopy /qchky /-i extracted\NON-HLOS\image\adsps.jsn output\Subsystems\ADSP\adsps
 xcopy /qchky /-i extracted\NON-HLOS\image\adspua.jsn output\Subsystems\ADSP\adspua.jsn
 
 echo Copying ADSP lib files...
-REM xcopy /qcheriky extracted\vendor\lib\rfsa\adsp output\Subsystems\ADSP\ADSP
 xcopy /qcheriky extracted\dsp\adsp output\Subsystems\ADSP\ADSP
 
 echo Generating ADSP FASTRPC INF Configuration...
@@ -255,46 +254,41 @@ tools\UEFIReader.exe extracted\abl.elf output\UEFI\ABL
 exit /b 0
 
 :checkRKH
-
-set "x=INVALID"
-for /F "eol=; tokens=1-2 delims=" %%a in ('tools\RKHReader.exe "%~1" 2^>^&1') do (
-    set "x=%%a"
-)
+set x=INVALID
+for /F "eol=; tokens=1-2 delims=" %%a in ('tools\RKHReader.exe %1 2^>^&1') do (set x=%%a)
 
 echo.
-echo File: %~1
+echo File: %1
 echo RKH : %x%
 echo.
-set "directory=%~dp1"
-call set "directory=%%directory:%cd%\=%%"
+set directory=%~dp1
+call set directory=%%directory:%cd%=%%
 
-echo %RKH_LIST% | findstr /I /C:"%x%" >nul
-if NOT errorlevel 1 (
+if %x%==%RKH% (
     exit /b 1
 )
 
-if /I "%x%"=="FAIL!" (
+if %x%==FAIL! (
     exit /b 2
 )
 
-if /I "%x%"=="EXCEPTION!" (
+if %x%==EXCEPTION! (
     exit /b 2
 )
 
-echo %~1 is a valid MBN file and is not production signed (%x%). Moving...
-mkdir "unsigned\%directory%" 2>nul
-move "%~1" "unsigned\%directory%"
+echo %1 is a valid MBN file and is not production signed (%x%). Moving...
+mkdir unsigned\%directory%
+move %1 unsigned\%directory%
 exit /b 0
 
 :moveUnsigned
-
 echo.
-echo File: %~1
+echo File: %1
 echo.
-set "directory=%~dp1"
-call set "directory=%%directory:%cd%\=%%"
+set directory=%~dp1
+call set directory=%%directory:%cd%=%%
 
-echo %~1 is a valid MBN file and is not signed. Moving...
-mkdir "unsigned\%directory%" 2>nul
-move "%~1" "unsigned\%directory%"
+echo %1 is a valid MBN file and is not signed. Moving...
+mkdir unsigned\%directory%
+move %1 unsigned\%directory%
 exit /b 0
