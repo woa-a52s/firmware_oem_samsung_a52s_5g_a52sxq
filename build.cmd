@@ -109,8 +109,8 @@ xcopy /qchky /-i extracted\vendor\firmware\CAMERA_ICP.elf output\Subsystems\ICP\
 REM IPA
 mkdir output\Subsystems\IPA
 
-xcopy /qchky /-i extracted\vendor\firmware\ipa_fws.elf output\Subsystems\IPA\ipa_fws.elf
-
+echo Converting IPA Subsystem image...
+python tools\pil-squasher.py .\output\Subsystems\IPA\ipa_fws.elf ./extracted/NON-HLOS/image/yupik_ipa_fws.mdt
 
 REM MCFG
 mkdir output\Subsystems\MCFG

@@ -1,3 +1,9 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\Arminas\Desktop\firmware_oem_samsung_a52s_5g_a52sxq> .\build.cmd
 
   _______        __  _____      _                  _
  |  ___\ \      / / | ____|_  _| |_ _ __ __ _  ___| |_ ___  _ __
@@ -939,6 +945,7 @@ RKH : EXCEPTION!
 
 Checking IMG files validity... (This may take a while!)
 File Not Found
+A subdirectory or file output already exists.
 Converting Analog DSP Image...
 Copying ADSP Protection Domain Registry Config files...
 1 File(s) copied
@@ -956,8 +963,7 @@ Generating CDSP FASTRPC INF Configuration...
 File not found - evass.mbn
 0 File(s) copied
 1 File(s) copied
-File not found - ipa_fws.elf
-0 File(s) copied
+Converting IPA Subsystem image...
 Generating MCFG TFTP INF Configuration...
 1 File(s) copied
 Copying MPSS Protection Domain Registry Config files...
@@ -999,3 +1005,4 @@ Copying rtic (n=rtic;p=8:c47728cf3e4289,60:30080400a3001,b4;s=46;u=6238333e1eb7e
 Extracting XBL Image...
 Extracting ImageFV Image...
 Extracting ABL Image...
+PS C:\Users\Arminas\Desktop\firmware_oem_samsung_a52s_5g_a52sxq>
