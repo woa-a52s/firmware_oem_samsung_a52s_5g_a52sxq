@@ -8899,6 +8899,8 @@
 (allow domain vendor_dma_buf_debugfs (dir (ioctl read getattr lock open watch watch_reads search)))
 (allow domain vendor_hdm_public_prop (file (read getattr map open)))
 (allow domain vendor_hdm_restricted_prop (file (read getattr map open)))
+(allowx domain file_type (ioctl file (0xf514)))
+(allowx domain sdcard_type (ioctl file (0xf514)))
 (dontaudit untrusted_app_25_30_0 file_type (dir (getattr)))
 (dontaudit untrusted_app_25_30_0 file_type (file (getattr)))
 (dontaudit platform_app_30_0 serialno_prop_30_0 (file (ioctl read getattr lock map open watch watch_reads)))

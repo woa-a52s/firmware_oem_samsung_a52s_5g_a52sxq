@@ -11,7 +11,7 @@ echo.
 REM A52sxq Root Key Hash
 set RKH=2169476B5DB4A43D2475C40CA2A3B122CECD15361F437C488D7FE785FB6E8409
 
-set SOC=7325
+set SOC=7280
 
 echo.
 echo Target: A52sxq
@@ -92,13 +92,6 @@ xcopy /qcheriky extracted\dsp\cdsp output\Subsystems\CDSP\CDSP
 
 echo Generating CDSP FASTRPC INF Configuration...
 tools\SuBExtInfUpdater-CDSP.exe output\Subsystems\CDSP\CDSP > output\Subsystems\CDSP\inf_configuration.txt
-
-
-REM EVASS
-mkdir output\Subsystems\EVASS
-
-xcopy /qchky /-i extracted\vendor\firmware\evass.mbn output\Subsystems\EVASS\evass.mbn
-
 
 REM ICP
 mkdir output\Subsystems\ICP
